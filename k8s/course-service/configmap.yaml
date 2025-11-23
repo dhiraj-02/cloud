@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: course-service-config
+  namespace: edu-app
+data:
+  DB_HOST: "mysql.cluster.endpoint"
+  DB_USER: "admin"
+  DB_NAME: "education"

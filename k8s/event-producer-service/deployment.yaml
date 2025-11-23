@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: event-producer-service
+  namespace: edu-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: event-producer-service
+  template:
+    metadata:
+      labels:
+        app: event-producer-service
+    spec:
+      containers:
+      - name: event-producer-service
+        image: 625867134199.dkr.ecr.ap-south-1.amazonaws.com/event-producer-service:latest
+        ports:
+        - containerPort: 5003
+        envFrom:
+        - configMapRef:
+            name: event-producer-config

@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: analytics-api-service
+  namespace: edu-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: analytics-api-service
+  template:
+    metadata:
+      labels:
+        app: analytics-api-service
+    spec:
+      containers:
+      - name: analytics-api-service
+        image: 625867134199.dkr.ecr.ap-south-1.amazonaws.com/analytics-api-service:latest
+        ports:
+        - containerPort: 5005
+        envFrom:
+        - configMapRef:
+            name: analytics-api-config

@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user-service-config
+  namespace: edu-app
+data:
+  DB_HOST: "mysql.cluster.endpoint"        # replace with actual RDS endpoint
+  DB_USER: "admin"
+  DB_NAME: "education"
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: user-service-secret
+  namespace: edu-app
+type: Opaque
+stringData:
+  DB_PASSWORD: "Test12345!"

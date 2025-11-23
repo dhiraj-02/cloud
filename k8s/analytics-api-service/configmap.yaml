@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: analytics-api-config
+  namespace: edu-app
+data:
+  DYNAMODB_TABLE: "analytics-results"

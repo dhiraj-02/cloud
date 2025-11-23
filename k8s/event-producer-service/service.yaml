@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: event-producer-service
+  namespace: edu-app
+spec:
+  selector:
+    app: event-producer-service
+  ports:
+  - port: 80
+    targetPort: 5003
+  type: ClusterIP

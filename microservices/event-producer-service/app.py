@@ -16,7 +16,7 @@ def make_kafka_producer():
         # fallback: use the raw string if splitting produced nothing
         bootstrap_list = [raw_bs.strip()]
 
-    security_protocol = os.environ.get("KAFKA_SECURITY_PROTOCOL", None)
+    security_protocol = os.environ.get("KAFKA_SECURITY_PROTOCOL", "")
     ssl_cafile = os.environ.get("KAFKA_SSL_CAFILE", None)
     request_timeout_ms = int(os.environ.get("KAFKA_REQUEST_TIMEOUT_MS", "30000"))
     api_version_auto_timeout_ms = int(os.environ.get("KAFKA_API_VERSION_AUTO_TIMEOUT_MS", "30000"))
@@ -34,14 +34,11 @@ def make_kafka_producer():
     if security_protocol:
         kwargs["security_protocol"] = security_protocol
     if ssl_cafile:
-        # kafka-python expects ssl_cafile kw name 'ssl_cafile'
         kwargs["ssl_cafile"] = ssl_cafile
 
-    # Defensive checks
     if not kwargs["bootstrap_servers"]:
         raise RuntimeError("KAFKA_BOOTSTRAP is empty or invalid; set KAFKA_BOOTSTRAP env")
 
-    # Create producer and let exceptions surface to logs (so Kubernetes shows them)
     return KafkaProducer(**kwargs)
 
 # create producer at startup and log failures
